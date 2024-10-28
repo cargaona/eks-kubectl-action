@@ -24,8 +24,6 @@ fi
 if [ -n "${INPUT_AWS_ASSUME_ROLE_ARN:-}" ]; then
   echo "Assuming AWS IAM Role"
   CREDS=$(aws sts assume-role --role-arn $INPUT_AWS_ASSUME_ROLE_ARN --role-session-name AWSCLI-Session --output json)
-  echo $CREDS
-  echo $CREDS | grep AccessKeyId | jq -r .Credentials.AccessKeyId
   export AWS_ACCESS_KEY_ID=$(echo $CREDS | jq -r .Credentials.AccessKeyId)
   export AWS_SECRET_ACCESS_KEY=$(echo $CREDS | jq -r .Credentials.SecretAccessKey)
   export AWS_SESSION_TOKEN=$(echo $CREDS | jq -r .Credentials.SessionToken)
