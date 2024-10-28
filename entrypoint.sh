@@ -24,11 +24,13 @@ fi
 if [ -n "${INPUT_AWS_ASSUME_ROLE_ARN:-}" ]; then
   echo "Assuming AWS IAM Role"
   CREDS=$(aws sts assume-role --role-arn $INPUT_AWS_ASSUME_ROLE_ARN --role-session-name AWSCLI-Session)
-  debug $CREDS
   export AWS_ACCESS_KEY_ID=$(echo $CREDS | grep AccessKeyId | awk -F '"' '{print $4}')
   export AWS_SECRET_ACCESS_KEY=$(echo $CREDS | grep SecretAccessKey | awk -F '"' '{print $4}')
   export AWS_SESSION_TOKEN=$(echo $CREDS | grep SessionToken | awk -F '"' '{print $4}')
 fi
+
+echo "AWS Identity"
+aws sts get-caller-identity
 
 if [ -n "${INPUT_KUBERNETES_VERSION:-}" ]; then
   KUBERNETES_VERSION="${INPUT_KUBERNETES_VERSION}"
