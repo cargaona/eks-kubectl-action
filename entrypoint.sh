@@ -22,6 +22,7 @@ if [ -n "${INPUT_AWS_REGION:-}" ]; then
 fi
 
 if [ -n "${INPUT_AWS_ASSUME_ROLE_ARN:-}" ]; then
+  echo "Assuming AWS IAM Role"
   aws sts assume-role --role-arn $INPUT_AWS_ASSUME_ROLE_ARN --role-session-name AWSCLI-Session
 fi
 
