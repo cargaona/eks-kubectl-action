@@ -23,7 +23,7 @@ fi
 
 if [ -n "${INPUT_AWS_ASSUME_ROLE_ARN:-}" ]; then
   echo "Assuming AWS IAM Role"
-  CREDS=$(aws sts assume-role --role-arn $INPUT_AWS_ASSUME_ROLE_ARN --role-session-name AWSCLI-Session)
+  CREDS=$(aws sts assume-role --role-arn $INPUT_AWS_ASSUME_ROLE_ARN --role-session-name AWSCLI-Session --output json)
   echo $CREDS
   echo $CREDS | grep AccessKeyId | awk -F '"' '{print $4}'
   export AWS_ACCESS_KEY_ID=$(echo $CREDS | grep AccessKeyId | awk -F '"' '{print $4}')
