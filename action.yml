@@ -17,6 +17,9 @@ inputs:
   aws_region:
     description: The region of the cluster
     required: false
+  aws_assume_role_arn:
+    description: The ARN of an IAM role to be assumed
+    required: false
   cluster_name:
     description: The name of the cluster you're using
     required: true

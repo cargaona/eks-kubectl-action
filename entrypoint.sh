@@ -21,6 +21,10 @@ if [ -n "${INPUT_AWS_REGION:-}" ]; then
   export AWS_REGION="${INPUT_AWS_REGION}"
 fi
 
+if [-n "${INPUT_AWS_ASSUME_ROLE_ARN:-}"]; then
+  aws sts assume-role --role-arn $INPUT_AWS_ASSUME_ROLE_ARN --role-session-name AWSCLI-Session
+fi
+
 if [ -n "${INPUT_KUBERNETES_VERSION:-}" ]; then
   KUBERNETES_VERSION="${INPUT_KUBERNETES_VERSION}"
 else
